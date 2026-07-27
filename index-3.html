@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Fuego Vivo Hot Dog — Artesanal · Bogotá</title>
+  <meta name="description" content="Hot dogs artesanales a la parrilla en Bogotá. Pan artesanal, ingredientes frescos y el mejor sabor.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Nunito', sans-serif; background: #F8F3EC; color: #1C1C1C; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+
+/* ── TOKENS ── */
+:root {
+  --cream: #F8F3EC;
+  --cream-dark: #EDE6DB;
+  --gold: #B8882A;
+  --gold-light: #D4A843;
+  --charcoal: #1C1C1C;
+  --charcoal-light: #3A3A3A;
+  --gray: #7A7A7A;
+  --gray-light: #B0A89E;
+  --max: 1100px;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Nunito', sans-serif;
+}
+
+/* ── HEADER ── */
+.hdr {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(248,243,236,0.96); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--cream-dark);
+  transition: box-shadow 0.3s;
+}
+.hdr__inner {
+  max-width: var(--max); margin: 0 auto;
+  padding: 1.25rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.hdr__logo {
+  font-family: var(--serif);
+  font-size: 1.25rem; font-weight: 600;
+  letter-spacing: 0.04em; color: var(--charcoal);
+}
+.hdr__logo em { font-style: italic; color: var(--gold); }
+.hdr__nav { display: none; gap: 2.5rem; }
+.hdr__nav a {
+  font-size: 0.8rem; font-weight: 500; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--gray);
+  transition: color 0.2s;
+}
+.hdr__nav a:hover { color: var(--charcoal); }
+.hdr__right { display: flex; align-items: center; gap: 1.25rem; }
+.hdr__cart-btn {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--charcoal); cursor: pointer;
+  padding: 0.5rem 1rem; border: 1px solid var(--charcoal);
+  transition: background 0.2s, color 0.2s;
+}
+.hdr__cart-btn:hover { background: var(--charcoal); color: var(--cream); }
+.hdr__cart-cnt {
+  min-width: 18px; height: 18px; padding: 0 4px;
+  background: var(--gold); color: #fff;
+  font-size: 0.65rem; font-weight: 700; border-radius: 100px;
+  display: flex; align-items: center; justify-content: center;
+}
+.hdr__burger { display: flex; flex-direction: column; gap: 6px; width: 30px; cursor: pointer; }
+.hdr__burger span { display: block; height: 1.5px; background: var(--charcoal); }
+.hdr__mob-nav {
+  display: none; flex-direction: column;
+  background: var(--cream); border-bottom: 1px solid var(--cream-dark);
+  padding: 2rem; gap: 1.5rem;
+}
+.hdr__mob-nav.open { display: flex; }
+.hdr__mob-nav a { font-family: var(--serif); font-size: 1.5rem; color: var(--charcoal); }
+.hdr__mob-order {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); border-top: 1px solid var(--cream-dark); padding-top: 1.5rem;
+  cursor: pointer; background: none; text-align: left;
+}
+
+@media (min-width: 768px) {
+  .hdr__nav { display: flex; }
+  .hdr__burger { display: none; }
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh; padding-top: 80px;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; padding-left: 2rem; padding-right: 2rem;
+  background: var(--cream);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.hero__inner { max-width: 680px; }
+.hero__sup {
+  display: inline-block;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 2rem;
+}
+.hero__title {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 1.05; font-weight: 700;
+  color: var(--charcoal); margin-bottom: 0.25em;
+}
+.hero__title em { font-style: italic; color: var(--gold); }
+.hero__sub {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  color: var(--gray); line-height: 1.8;
+  max-width: 480px; margin: 0 auto 2.5rem;
+}
+.hero__btns { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+.btn-gold {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 1rem 2.5rem; background: var(--gold); color: #fff;
+  display: inline-block; transition: background 0.2s, transform 0.2s;
+}
+.btn-gold:hover { background: var(--charcoal); transform: translateY(-2px); }
+.btn-outline {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 1rem 2.5rem; border: 1px solid var(--charcoal); color: var(--charcoal);
+  display: inline-block; transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.btn-outline:hover { background: var(--charcoal); color: var(--cream); transform: translateY(-2px); }
+.hero__deco {
+  margin: 3rem auto 0;
+  display: flex; align-items: center; gap: 1rem; justify-content: center;
+}
+.hero__line { flex: 1; max-width: 80px; height: 1px; background: var(--cream-dark); }
+.hero__deco-txt { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-light); }
+
+/* ── MANIFESTO STRIP ── */
+.manifesto {
+  background: var(--charcoal); padding: 5rem 2rem;
+  text-align: center;
+}
+.manifesto__q {
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: var(--cream); line-height: 1.4;
+  max-width: 700px; margin: 0 auto 1.5rem;
+}
+.manifesto__attr {
+  font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+}
+
+/* ── SECTION WRAPPER ── */
+.section { padding: 6rem 2rem; }
+.section--alt { background: var(--cream-dark); }
+
+.sec-label {
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.sec-label::before { content:''; display:block; width:30px; height:1px; background:var(--gold); }
+
+.sec-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700; line-height: 1.1; color: var(--charcoal);
+  margin-bottom: 1rem;
+}
+.sec-title em { font-style: italic; }
+.sec-desc { font-size: 1rem; color: var(--gray); max-width: 520px; line-height: 1.8; }
+
+/* ── MENÚ ── */
+.menu-wrap { max-width: var(--max); margin: 0 auto; }
+.menu-header { margin-bottom: 4rem; }
+.menu-header .sec-desc { max-width: 400px; }
+
+.cat-block { margin-bottom: 4rem; }
+.cat-head {
+  display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem;
+  padding-bottom: 1rem; border-bottom: 1px solid var(--cream-dark);
+}
+.cat-num {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1rem; color: var(--gold); flex-shrink: 0;
+}
+.cat-name {
+  font-family: var(--serif); font-size: 1.5rem;
+  font-weight: 600; color: var(--charcoal);
+}
+
+.menu-table { width: 100%; border-collapse: collapse; }
+.menu-row {
+  display: grid; grid-template-columns: 1fr auto auto;
+  align-items: center; gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--cream-dark);
+  transition: background 0.15s;
+}
+.menu-row:last-child { border-bottom: none; }
+.menu-row:hover { background: rgba(184,136,42,0.04); margin: 0 -1rem; padding-left: 1rem; padding-right: 1rem; }
+.menu-item-name {
+  font-family: var(--serif); font-size: 1rem;
+  font-weight: 600; color: var(--charcoal);
+}
+.menu-item-desc { font-size: 0.85rem; color: var(--gray); margin-top: 0.2rem; }
+.menu-item-price {
+  font-family: var(--serif); font-size: 1.1rem;
+  color: var(--charcoal); font-weight: 600;
+  white-space: nowrap;
+}
+.menu-item-add {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--gold);
+  padding: 0.5rem 1.25rem; border: 1px solid var(--gold);
+  transition: background 0.15s, color 0.15s; white-space: nowrap;
+  cursor: pointer;
+}
+.menu-item-add:hover, .menu-item-add.added { background: var(--gold); color: #fff; }
+
+.chorizo-box {
+  background: var(--cream); border: 1px solid var(--cream-dark);
+  padding: 2rem; margin-top: -2rem;
+}
+.chorizo-box__label {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+}
+.chorizo-box__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chorizo-box__tag {
+  font-size: 0.8rem; color: var(--gray);
+  border: 1px solid var(--cream-dark); padding: 0.25rem 0.75rem;
+}
+
+/* ── SEDE ── */
+.sede-wrap { max-width: var(--max); margin: 0 auto; }
+.sede-inner { display: grid; gap: 4rem; margin-top: 3rem; }
+.sede-card3 {
+  display: grid; gap: 2rem;
+  padding: 3rem; background: var(--cream);
+  border: 1px solid var(--cream-dark);
+}
+.sede-card3__title {
+  font-family: var(--serif); font-size: 1.75rem;
+  font-weight: 600; color: var(--charcoal);
+  padding-bottom: 1.5rem; border-bottom: 1px solid var(--cream-dark);
+}
+.sede-card3__details { display: grid; gap: 1.25rem; }
+.sede-det { display: flex; gap: 1.25rem; }
+.sede-det__icon {
+  width: 36px; height: 36px; flex-shrink: 0;
+  border: 1px solid var(--cream-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; color: var(--gold);
+}
+.sede-det__info { }
+.sede-det__lbl { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+.sede-det__val { font-size: 0.9rem; color: var(--charcoal); }
+.sede-card3__actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+.sede-btn-wa {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 0.875rem 1.75rem; background: #25D366; color: #fff;
+  transition: opacity 0.2s;
+}
+.sede-btn-wa:hover { opacity: 0.85; }
+.sede-btn-maps {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 0.875rem 1.75rem; border: 1px solid var(--charcoal); color: var(--charcoal);
+  transition: background 0.2s, color 0.2s;
+}
+.sede-btn-maps:hover { background: var(--charcoal); color: var(--cream); }
+
+/* ── FOOTER ── */
+.footer3 {
+  background: var(--charcoal); padding: 4rem 2rem;
+  border-top: 1px solid #333;
+}
+.footer3__inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 1.5rem; text-align: center;
+}
+.footer3__logo {
+  font-family: var(--serif); font-size: 1.5rem;
+  color: var(--cream); font-weight: 600;
+}
+.footer3__logo em { font-style: italic; color: var(--gold); }
+.footer3__divider { width: 40px; height: 1px; background: var(--gold); }
+.footer3__copy { font-size: 0.8rem; color: #555; letter-spacing: 0.05em; }
+.footer3__copy a { color: var(--gold); transition: opacity 0.2s; }
+.footer3__copy a:hover { opacity: 0.75; }
+
+/* ── CART PANEL ── */
+.cart-overlay3 {
+  position: fixed; inset: 0; background: rgba(28,28,28,0.7);
+  backdrop-filter: blur(4px); z-index: 200;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.cart-overlay3.open { opacity: 1; pointer-events: all; }
+.cart-panel3 {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(440px, 100vw);
+  background: var(--cream); border-left: 1px solid var(--cream-dark);
+  z-index: 201; display: flex; flex-direction: column;
+  transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+.cart-panel3.open { transform: translateX(0); }
+.cp3-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 2rem; border-bottom: 1px solid var(--cream-dark); flex-shrink: 0;
+}
+.cp3-title {
+  font-family: var(--serif); font-size: 1.5rem; color: var(--charcoal); font-weight: 600;
+}
+.cp3-close {
+  width: 32px; height: 32px; border: 1px solid var(--cream-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; color: var(--gray); cursor: pointer;
+  transition: border-color 0.2s, color 0.2s; background: none;
+}
+.cp3-close:hover { border-color: var(--charcoal); color: var(--charcoal); }
+.cp3-body { flex: 1; overflow-y: auto; padding: 1.5rem 2rem; }
+.cp3-footer { padding: 1.5rem 2rem 2.5rem; border-top: 1px solid var(--cream-dark); flex-shrink: 0; }
+
+/* cart items */
+.ci3 {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 0; border-bottom: 1px solid var(--cream-dark);
+}
+.ci3:last-of-type { border-bottom: none; }
+.ci3__info { flex: 1; }
+.ci3__name { font-family: var(--serif); font-size: 0.95rem; color: var(--charcoal); font-weight: 600; }
+.ci3__price { font-size: 0.85rem; color: var(--gold); margin-top: 2px; }
+.ci3__ctrl { display: flex; align-items: center; gap: 0.75rem; }
+.ci3__btn {
+  width: 26px; height: 26px; border: 1px solid var(--cream-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; color: var(--charcoal); cursor: pointer; background: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+.ci3__btn:hover { border-color: var(--gold); color: var(--gold); }
+.ci3__qty { font-family: var(--serif); font-size: 1rem; color: var(--charcoal); min-width: 16px; text-align: center; }
+
+/* empty */
+.ce3 { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 4rem 0; text-align: center; }
+.ce3__icon { font-size: 2.5rem; opacity: 0.3; }
+.ce3__txt { font-size: 0.9rem; color: var(--gray); line-height: 1.7; }
+.ce3__btn {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 0.75rem 1.75rem; border: 1px solid var(--charcoal); color: var(--charcoal);
+  cursor: pointer; background: none; transition: background 0.15s, color 0.15s;
+}
+.ce3__btn:hover { background: var(--charcoal); color: var(--cream); }
+
+/* total & actions */
+.ct3-total { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.5rem; }
+.ct3-total__lbl { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); }
+.ct3-total__val { font-family: var(--serif); font-size: 1.75rem; color: var(--charcoal); font-weight: 600; }
+.ct3-next {
+  display: block; width: 100%;
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 1.1rem; background: var(--charcoal); color: var(--cream);
+  cursor: pointer; text-align: center; border: none;
+  transition: background 0.2s; font-family: var(--sans);
+}
+.ct3-next:hover { background: var(--gold); }
+.ct3-clear { display: block; width: 100%; margin-top: 0.75rem; background: none; border: none; font-size: 0.75rem; color: var(--gray-light); cursor: pointer; text-align: center; }
+.ct3-clear:hover { color: var(--charcoal); }
+
+/* form */
+.of3-summary {
+  border: 1px solid var(--cream-dark); border-left: 2px solid var(--gold);
+  padding: 1.25rem; margin-bottom: 1.75rem; background: var(--cream);
+}
+.of3-summary__lbl { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+.of3-summary__items { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.75rem; }
+.of3-summary__item { font-size: 0.8rem; color: var(--gray); border: 1px solid var(--cream-dark); padding: 2px 8px; }
+.of3-summary__total { font-family: var(--serif); font-size: 1.25rem; color: var(--charcoal); }
+
+.of3 { display: flex; flex-direction: column; gap: 1.5rem; }
+.of3__field { display: flex; flex-direction: column; gap: 0.5rem; }
+.of3__label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--charcoal); }
+.of3__input {
+  width: 100%; padding: 0.875rem 1rem;
+  background: #fff; border: 1px solid var(--cream-dark);
+  color: var(--charcoal); font-family: var(--sans); font-size: 0.95rem;
+  outline: none; transition: border-color 0.2s; border-radius: 0;
+}
+.of3__input::placeholder { color: var(--gray-light); }
+.of3__input:focus { border-color: var(--gold); }
+.of3__input.err { border-color: #C0392B; }
+.of3__err { font-size: 0.75rem; color: #C0392B; }
+
+.pay3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; }
+.pay3-opt { cursor: pointer; }
+.pay3-opt input { position: absolute; opacity: 0; width: 0; height: 0; }
+.pay3-card {
+  display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+  padding: 1rem 0.5rem; border: 1px solid var(--cream-dark); background: #fff;
+  transition: border-color 0.15s; user-select: none; text-align: center;
+}
+.pay3-card:hover { border-color: var(--gold); }
+.pay3-card.sel { border-color: var(--gold); background: rgba(184,136,42,0.06); }
+.pay3-card__icon { font-size: 1.25rem; }
+.pay3-card__name { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; color: var(--charcoal); }
+
+.ct3-back { background: none; border: none; cursor: pointer; font-size: 0.75rem; color: var(--gray); margin-bottom: 0.75rem; display: block; text-align: left; }
+.ct3-back:hover { color: var(--charcoal); }
+.ct3-wa {
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  width: 100%; padding: 1.1rem;
+  background: #25D366; color: #fff; border: none; cursor: pointer;
+  font-family: var(--sans); font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  transition: background 0.2s;
+}
+.ct3-wa:hover { background: #1ebe5d; }
+.ct3-wa svg { width: 18px; height: 18px; fill: #fff; }
+
+/* ── FAB ── */
+.cart-fab3 {
+  position: fixed; bottom: 100px; right: 2rem; z-index: 90;
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--charcoal); color: var(--cream);
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  cursor: pointer; border: none;
+  box-shadow: 0 4px 20px rgba(28,28,28,0.25);
+  transition: background 0.2s, transform 0.2s;
+}
+.cart-fab3:hover { background: var(--gold); transform: translateY(-2px); }
+.cart-fab3__cnt {
+  min-width: 18px; height: 18px; padding: 0 4px;
+  background: var(--gold); color: #fff;
+  font-size: 0.65rem; font-weight: 700; border-radius: 100px;
+  display: flex; align-items: center; justify-content: center;
+}
+.wa-fab3 {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 90;
+  width: 52px; height: 52px;
+  background: #25D366; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.wa-fab3:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 8px 24px rgba(37,211,102,0.4); }
+.wa-fab3 svg { width: 26px; height: 26px; fill: #fff; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr" id="hdr">
+  <div class="hdr__inner">
+    <a href="#inicio" class="hdr__logo">A <em>Fuego Vivo</em></a>
+    <nav class="hdr__nav">
+      <a href="#menu">Menú</a>
+      <a href="#sede">Sede</a>
+      <a href="#footer">Contacto</a>
+    </nav>
+    <div class="hdr__right">
+      <button class="hdr__cart-btn" id="cart-toggle">
+        Pedido
+        <span class="hdr__cart-cnt" id="cart-badge" hidden>0</span>
+      </button>
+      <button class="hdr__burger" aria-label="Menú" id="burger" aria-expanded="false" aria-controls="mob-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav id="mob-nav" class="hdr__mob-nav">
+  <a href="#menu">Menú</a>
+  <a href="#sede">Sede</a>
+  <a href="#footer">Contacto</a>
+  <button class="hdr__mob-order" id="cart-toggle-mobile">Ver mi pedido
+    <span id="cart-badge-mobile" hidden style="color:#1C1C1C;background:var(--gold);padding:0 6px;border-radius:100px;font-size:0.7rem;margin-left:4px;">0</span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="inicio" class="hero">
+  <div class="hero__inner">
+    <span class="hero__sup">Bogotá · Artesanal · Desde la parrilla</span>
+    <h1 class="hero__title">A <em>Fuego</em><br>Vivo Hot Dog</h1>
+    <p class="hero__sub">Pan artesanal, ingredientes cuidadosamente seleccionados y el sabor que no olvidas. Una experiencia sencilla, hecha con pasión.</p>
+    <div class="hero__btns">
+      <a href="#menu" class="btn-gold">Explorar el menú</a>
+      <a href="#sede" class="btn-outline">Nuestra sede</a>
+    </div>
+    <div class="hero__deco">
+      <div class="hero__line"></div>
+      <span class="hero__deco-txt">Domingo a Domingo · Todo el día</span>
+      <div class="hero__line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <p class="manifesto__q">"Cada perro caliente es una historia —<br>ingredientes frescos, fuego real y mucho sabor."</p>
+  <p class="manifesto__attr">A Fuego Vivo · Bogotá</p>
+</section>
+
+<!-- MENÚ -->
+<section id="menu" class="section">
+  <div class="menu-wrap">
+    <div class="menu-header">
+      <p class="sec-label">Lo que servimos</p>
+      <h2 class="sec-title">Nuestro <em>Menú</em></h2>
+      <p class="sec-desc">Cada producto preparado con cuidado. Agrega lo que quieras a tu pedido y lo enviamos por WhatsApp.</p>
+    </div>
+    <div id="menu-inner"></div>
+  </div>
+</section>
+
+<!-- SEDE -->
+<section id="sede" class="section section--alt">
+  <div class="sede-wrap">
+    <p class="sec-label">Encuéntranos</p>
+    <h2 class="sec-title">Nuestra <em>Sede</em></h2>
+    <div class="sede-inner" id="sede-inner"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer" class="footer3">
+  <div class="footer3__inner">
+    <p class="footer3__logo">A <em>Fuego Vivo</em> Hot Dog</p>
+    <div class="footer3__divider"></div>
+    <p class="footer3__copy">© 2024 A Fuego Vivo Hot Dog · Bogotá</p>
+    <p class="footer3__copy">Hecho por <a href="https://john-bareno-devgis.github.io/portafolio/" target="_blank" rel="noopener noreferrer">John Bareño</a></p>
+  </div>
+</footer>
+
+<!-- CART PANEL -->
+<div class="cart-overlay3" id="cart-overlay"></div>
+<aside class="cart-panel3" id="cart-panel" aria-label="Tu pedido" aria-hidden="true">
+  <div class="cp3-head">
+    <h2 class="cp3-title" id="cp-title">Tu Pedido</h2>
+    <button class="cp3-close" id="cart-close" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="cp3-body" id="cart-body"></div>
+  <div class="cp3-footer" id="cart-footer"></div>
+</aside>
+
+<!-- FABs -->
+<button class="cart-fab3" id="cart-fab" hidden aria-label="Ver pedido">
+  🛒 Pedido
+  <span class="cart-fab3__cnt" id="cart-fab-count">0</span>
+</button>
+<a class="wa-fab3" href="#" id="wa-fab" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script type="module">
+import { MENU, CHORIZOS, LOCATIONS } from './js/config.js';
+
+const COP = new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0});
+let cart = [];
+const phone = LOCATIONS[0]?.phone ?? '573219357262';
+
+// ── Render Menú ──
+function renderMenu() {
+  const wrap = document.getElementById('menu-inner');
+  let html = MENU.map((cat, idx) => `
+    <div class="cat-block">
+      <div class="cat-head">
+        <span class="cat-num">0${idx+1}</span>
+        <h3 class="cat-name">${cat.name}</h3>
+      </div>
+      ${cat.items.map(item => `
+        <div class="menu-row">
+          <div>
+            <p class="menu-item-name">${esc(item.name)}</p>
+            ${item.description ? `<p class="menu-item-desc">${esc(item.description)}</p>` : ''}
+          </div>
+          <span class="menu-item-price">${COP.format(item.price)}</span>
+          <button class="menu-item-add"
+            data-name="${esc(item.name)}" data-price="${item.price}"
+            aria-label="Agregar ${esc(item.name)} al pedido">Agregar</button>
+        </div>`).join('')}
+    </div>`).join('');
+
+  if (CHORIZOS.length) {
+    html += `<div class="chorizo-box">
+      <p class="chorizo-box__label">Tipos de chorizo disponibles</p>
+      <div class="chorizo-box__tags">${CHORIZOS.map(c=>`<span class="chorizo-box__tag">${c}</span>`).join('')}</div>
+    </div>`;
+  }
+  wrap.innerHTML = html;
+
+  wrap.addEventListener('click', e => {
+    const btn = e.target.closest('.menu-item-add');
+    if (!btn) return;
+    addItem({ name: btn.dataset.name, price: +btn.dataset.price, emoji: '🌭' });
+    btn.textContent = '✓ Agregado'; btn.classList.add('added');
+    setTimeout(() => { btn.textContent = 'Agregar'; btn.classList.remove('added'); }, 1200);
+    showCartStep(); openCart();
+  });
+}
+
+// ── Render Sedes ──
+function renderSedes() {
+  document.getElementById('sede-inner').innerHTML = LOCATIONS.map(loc => `
+    <div class="sede-card3">
+      <h3 class="sede-card3__title">${loc.name}</h3>
+      <div class="sede-card3__details">
+        <div class="sede-det">
+          <div class="sede-det__icon">📍</div>
+          <div><p class="sede-det__lbl">Dirección</p><p class="sede-det__val">${loc.address}${loc.city?', '+loc.city:''}</p></div>
+        </div>
+        <div class="sede-det">
+          <div class="sede-det__icon">🕐</div>
+          <div><p class="sede-det__lbl">Horario</p><p class="sede-det__val">${loc.schedule}</p></div>
+        </div>
+        <div class="sede-det">
+          <div class="sede-det__icon">📱</div>
+          <div><p class="sede-det__lbl">Teléfono</p><p class="sede-det__val">+57 ${loc.phone.replace('57','')}</p></div>
+        </div>
+      </div>
+      <div class="sede-card3__actions">
+        <a href="https://wa.me/${loc.phone}?text=${encodeURIComponent('Hola, quiero hacer un pedido!')}" target="_blank" rel="noopener" class="sede-btn-wa">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Pedir por WhatsApp
+        </a>
+        ${loc.mapsUrl ? `<a href="${loc.mapsUrl}" target="_blank" rel="noopener" class="sede-btn-maps">Ver en Maps</a>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+// ── WA FAB ──
+document.getElementById('wa-fab').href = `https://wa.me/${phone}?text=${encodeURIComponent('Hola, quiero hacer un pedido!')}`;
+
+// ── Cart logic ──
+function addItem({name,price,emoji}) {
+  const ex = cart.find(i=>i.name===name);
+  ex ? ex.qty++ : cart.push({name,price,emoji,qty:1});
+  updateBadges();
+}
+function changeQty(name,d) {
+  const i = cart.find(i=>i.name===name); if(!i) return;
+  i.qty+=d; if(i.qty<=0) cart=cart.filter(x=>x.name!==name);
+  updateBadges();
+}
+function total() { return cart.reduce((s,i)=>s+i.price*i.qty,0); }
+function totalItems() { return cart.reduce((s,i)=>s+i.qty,0); }
+function updateBadges() {
+  const n = totalItems();
+  ['cart-badge','cart-badge-mobile'].forEach(id => {
+    const el = document.getElementById(id); if(!el) return;
+    el.textContent = n; n>0 ? el.removeAttribute('hidden') : el.setAttribute('hidden','');
+  });
+  const fab = document.getElementById('cart-fab');
+  const fc  = document.getElementById('cart-fab-count');
+  if(fab) n>0 ? fab.removeAttribute('hidden') : fab.setAttribute('hidden','');
+  if(fc) fc.textContent = n;
+}
+
+function showCartStep() {
+  document.getElementById('cp-title').textContent = 'Tu Pedido';
+  const body = document.getElementById('cart-body');
+  const footer = document.getElementById('cart-footer');
+  if(cart.length===0) {
+    body.innerHTML=`<div class="ce3"><span class="ce3__icon">🌭</span><p class="ce3__txt">Tu pedido está vacío.<br>Explora el menú y agrega algo.</p><button class="ce3__btn" id="go-menu">Ver el menú</button></div>`;
+    footer.innerHTML='';
+    document.getElementById('go-menu')?.addEventListener('click',()=>{ closeCart(); document.querySelector('#menu')?.scrollIntoView({behavior:'smooth'}); });
+    return;
+  }
+  body.innerHTML = cart.map(i=>`
+    <div class="ci3">
+      <div class="ci3__info">
+        <p class="ci3__name">${esc(i.name)}</p>
+        <p class="ci3__price">${COP.format(i.price*i.qty)}</p>
+      </div>
+      <div class="ci3__ctrl">
+        <button class="ci3__btn" data-action="dec" data-name="${esc(i.name)}">−</button>
+        <span class="ci3__qty">${i.qty}</span>
+        <button class="ci3__btn" data-action="inc" data-name="${esc(i.name)}">+</button>
+      </div>
+    </div>`).join('');
+  footer.innerHTML=`
+    <div class="ct3-total"><span class="ct3-total__lbl">Total estimado</span><span class="ct3-total__val">${COP.format(total())}</span></div>
+    <button class="ct3-next" id="go-form">Continuar →</button>
+    <button class="ct3-clear" id="ct-clear">Vaciar pedido</button>`;
+  body.addEventListener('click', e => {
+    const b = e.target.closest('.ci3__btn'); if(!b) return;
+    changeQty(b.dataset.name, b.dataset.action==='inc'?1:-1); showCartStep();
+  });
+  document.getElementById('go-form')?.addEventListener('click', showFormStep);
+  document.getElementById('ct-clear')?.addEventListener('click', ()=>{ cart=[]; updateBadges(); showCartStep(); });
+}
+
+function showFormStep() {
+  document.getElementById('cp-title').textContent = 'Datos del pedido';
+  const body = document.getElementById('cart-body');
+  const footer = document.getElementById('cart-footer');
+  const resumen = cart.map(i=>`<span class="of3-summary__item">${i.name} ×${i.qty}</span>`).join('');
+  body.innerHTML=`
+    <div class="of3-summary">
+      <p class="of3-summary__lbl">Tu pedido</p>
+      <div class="of3-summary__items">${resumen}</div>
+      <p class="of3-summary__total">${COP.format(total())}</p>
+    </div>
+    <form class="of3" id="order-form" novalidate>
+      <div class="of3__field">
+        <label class="of3__label" for="f-name">Nombre completo</label>
+        <input class="of3__input" type="text" id="f-name" placeholder="Tu nombre" autocomplete="name" required>
+        <p class="of3__err" id="e-name" hidden>Por favor ingresa tu nombre.</p>
+      </div>
+      <div class="of3__field">
+        <label class="of3__label" for="f-addr">Direccion de entrega</label>
+        <input class="of3__input" type="text" id="f-addr" placeholder="Calle, carrera, barrio..." autocomplete="street-address" required>
+        <p class="of3__err" id="e-addr" hidden>Por favor ingresa tu direccion.</p>
+      </div>
+      <div class="of3__field">
+        <p class="of3__label">Metodo de pago</p>
+        <div class="pay3" role="radiogroup">
+          <label class="pay3-opt"><input type="radio" name="pay" value="Nequi" required><span class="pay3-card"><span class="pay3-card__icon">📱</span><span class="pay3-card__name">Nequi</span></span></label>
+          <label class="pay3-opt"><input type="radio" name="pay" value="Llave"><span class="pay3-card"><span class="pay3-card__icon">🔑</span><span class="pay3-card__name">Llave</span></span></label>
+          <label class="pay3-opt"><input type="radio" name="pay" value="Efectivo"><span class="pay3-card"><span class="pay3-card__icon">💵</span><span class="pay3-card__name">Efectivo</span></span></label>
+        </div>
+        <p class="of3__err" id="e-pay" hidden>Elige un metodo de pago.</p>
+      </div>
+    </form>`;
+  footer.innerHTML=`
+    <button class="ct3-back" id="back-cart">← Volver al pedido</button>
+    <button class="ct3-wa" id="send-wa">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Enviar por WhatsApp
+    </button>`;
+  body.querySelectorAll('.pay3-opt input').forEach(r => r.addEventListener('change', () => {
+    body.querySelectorAll('.pay3-card').forEach(c=>c.classList.remove('sel'));
+    r.nextElementSibling.classList.add('sel');
+  }));
+  document.getElementById('back-cart')?.addEventListener('click', showCartStep);
+  document.getElementById('send-wa')?.addEventListener('click', submitForm);
+}
+
+function submitForm() {
+  const name = document.getElementById('f-name')?.value.trim();
+  const addr = document.getElementById('f-addr')?.value.trim();
+  const pay  = document.querySelector('input[name="pay"]:checked')?.value ?? '';
+  const se=(id,show)=>{ const el=document.getElementById(id); if(el) el.hidden=!show; const inp=document.getElementById(id.replace('e-','f-')); inp?.classList.toggle('err',show); };
+  se('e-name',!name); se('e-addr',!addr); se('e-pay',!pay);
+  if(!name||!addr||!pay) return;
+  const lines = cart.map(i=>`- ${i.name} x${i.qty} (${COP.format(i.price*i.qty)})`);
+  const msg = [`*Pedido A Fuego Vivo Hot Dog*`,'', ...lines,'', `*Total: ${COP.format(total())}*`,'',`*Nombre:* ${name}`,`*Direccion:* ${addr}`,`*Pago:* ${pay}`,'','Gracias!'].join('\n');
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,'_blank','noopener');
+}
+
+function openCart()  { const p=document.getElementById('cart-panel'),o=document.getElementById('cart-overlay'); p?.classList.add('open'); p?.setAttribute('aria-hidden','false'); o?.classList.add('open'); document.body.style.overflow='hidden'; }
+function closeCart() { const p=document.getElementById('cart-panel'),o=document.getElementById('cart-overlay'); p?.classList.remove('open'); p?.setAttribute('aria-hidden','true'); o?.classList.remove('open'); document.body.style.overflow=''; }
+
+['cart-toggle','cart-toggle-mobile','cart-fab'].forEach(id=>document.getElementById(id)?.addEventListener('click',()=>{ showCartStep(); openCart(); }));
+document.getElementById('cart-close')?.addEventListener('click', closeCart);
+document.getElementById('cart-overlay')?.addEventListener('click', closeCart);
+
+// ── Hamburger ──
+document.getElementById('burger')?.addEventListener('click', function() {
+  const nav = document.getElementById('mob-nav');
+  const open = nav.classList.toggle('open');
+  this.setAttribute('aria-expanded', open);
+});
+
+// ── Header scroll ──
+window.addEventListener('scroll', () => {
+  document.getElementById('hdr').style.boxShadow = window.scrollY > 30 ? '0 2px 20px rgba(28,28,28,0.08)' : '';
+}, {passive:true});
+
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+renderMenu();
+renderSedes();
+showCartStep();
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+/* css/main.css — Importa todos los módulos */
+
+@import './variables.css';
+@import './reset.css';
+@import './components/header.css';
+@import './components/hero.css';
+@import './components/menu-section.css';
+@import './components/locations.css';
+@import './components/whatsapp-button.css';
+@import './components/footer.css';
+@import './components/cart.css';
+
+/* Utilidades globales */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* Animación de entrada general */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.fade-in--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Separador decorativo */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
