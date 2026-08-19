@@ -9,9 +9,9 @@ export const SITE = {
   tagline: 'Sabor que enciende tus sentidos',
   description: 'Hot dogs artesanales a la parrilla en Bogotá. Pan artesanal, ingredientes frescos y el mejor sabor. ¡Pídenos por WhatsApp!',
   domain: 'https://afuego-vivo.com',
-  ogImage: '/assets/images/og-image.jpg',
+  ogImage: 'assets/images/og-image-icon.png',
   menuPDF: '',   // Ruta al PDF del menú cuando esté disponible
-  logo: '/assets/logo.svg',
+  logo: 'assets/images/logo-flame.png',
 };
 
 // Paleta de marca — se inyecta como CSS custom properties en :root

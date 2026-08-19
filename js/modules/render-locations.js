@@ -7,10 +7,12 @@ import { showCartStep, openCart } from './cart.js';
 export function renderSedes() {
   document.getElementById('sede-grid').innerHTML = LOCATIONS.map(loc => `
     <div class="sede-card">
-      <h3 class="sede-card__name">${loc.name}</h3>
-      <div class="sede-detail"><span class="sede-detail__icon">🏠</span><div class="sede-detail__text"><strong>Dirección</strong>${loc.address}${loc.city ? ', ' + loc.city : ''}</div></div>
-      <div class="sede-detail"><span class="sede-detail__icon">🕐</span><div class="sede-detail__text"><strong>Horario</strong>${loc.schedule}</div></div>
-      <div class="sede-detail"><span class="sede-detail__icon">📱</span><div class="sede-detail__text"><strong>Teléfono</strong>+57 ${loc.phone.replace('57', '')}</div></div>
+      <div class="sede-info">
+        <h3 class="sede-card__name">${loc.name}</h3>
+        <div class="sede-detail"><span class="sede-detail__icon">🏠</span><div class="sede-detail__text"><strong>Dirección</strong>${loc.address}${loc.city ? ', ' + loc.city : ''}</div></div>
+        <div class="sede-detail"><span class="sede-detail__icon">🕐</span><div class="sede-detail__text"><strong>Horario</strong>${loc.schedule}</div></div>
+        <div class="sede-detail"><span class="sede-detail__icon">📱</span><div class="sede-detail__text"><strong>Teléfono</strong>+57 ${loc.phone.replace('57', '')}</div></div>
+      </div>
       <button type="button" class="sede-wa" data-open-cart>Haz tu pedido</button>
       <div class="sede-map-wrap">
         <iframe class="sede-map" src="${mapsEmbedSrc(loc)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de ${esc(loc.name)}"></iframe>
