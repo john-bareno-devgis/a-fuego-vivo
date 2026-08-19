@@ -171,6 +171,9 @@ export const PAYMENT = {
   qrImage: 'assets/images/qr-llave.png',
 };
 
+// Valor fijo del domicilio, se suma al total del pedido
+export const DELIVERY_FEE = 1000;
+
 // Redes sociales (vacías por ahora)
 export const SOCIAL = {
   instagram: '',

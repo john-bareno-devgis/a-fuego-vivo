@@ -1,156 +1,26 @@
-/* css/components/locations.css */
+/* css/components/locations.css — sección "Nuestra Sede" */
 
-.locations {
-  padding: var(--space-20) var(--space-6);
-  background: var(--color-surface-light);
-  position: relative;
+.sede-sec {
+  padding: 5rem 1.5rem;
+  background: var(--dark);
+  border-top: 4px solid var(--dark);
 }
-
-.locations::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+.sede-sec .sec-head__title { color: #fff; }
+.sede-sec .sec-head__desc { color: #aaa; }
+.sede-sec .sec-head__kicker { background: var(--red); color: #fff; }
+.sede-grid { max-width: var(--max); margin: 0 auto; display: grid; gap: 1.5rem; }
+.sede-card {
+  background: #222; border: 2px solid #333;
+  border-radius: var(--radius); padding: 2rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
 }
-
-.locations__inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
+.sede-card__name { font-family: 'Boogaloo', cursive; font-size: 2rem; color: #fff; }
+.sede-detail { display: flex; align-items: flex-start; gap: 0.75rem; }
+.sede-detail__icon { font-size: 1.25rem; flex-shrink: 0; }
+.sede-detail__text { font-size: 0.9rem; color: #aaa; }
+.sede-detail__text strong { display: block; color: #fff; font-weight: 700; margin-bottom: 2px; }
+.sede-map-wrap {
+  border: 2px solid #333; border-radius: 12px; overflow: hidden; line-height: 0;
+  aspect-ratio: 4 / 3;
 }
-
-.locations__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--space-6);
-}
-
-.location-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-8);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.location-card--visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.location-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-}
-
-.location-card__icon {
-  width: 48px;
-  height: 48px;
-  background: rgba(232,66,10,0.15);
-  border: 1px solid rgba(232,66,10,0.3);
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  margin-bottom: var(--space-4);
-}
-
-.location-card__name {
-  font-family: var(--font-display);
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--color-text);
-  margin-bottom: var(--space-6);
-}
-
-.location-card__details {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  margin-bottom: var(--space-8);
-}
-
-.location-card__detail {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-}
-
-.location-card__detail-icon {
-  font-size: 1.1rem;
-  margin-top: 2px;
-  flex-shrink: 0;
-}
-
-.location-card__detail-text {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  line-height: 1.5;
-}
-
-.location-card__detail-text strong {
-  display: block;
-  font-size: var(--text-base);
-  color: var(--color-text);
-  font-weight: 500;
-  margin-bottom: 2px;
-}
-
-.location-card__actions {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.location-card__whatsapp {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  padding: var(--space-4);
-  background: #25D366;
-  color: #fff;
-  border-radius: var(--radius-md);
-  font-family: var(--font-display);
-  font-size: var(--text-base);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  transition: background var(--transition-fast), transform var(--transition-fast);
-}
-
-.location-card__whatsapp:hover {
-  background: #1ebe5d;
-  transform: translateY(-1px);
-}
-
-.location-card__whatsapp-icon {
-  width: 20px;
-  height: 20px;
-}
-
-.location-card__maps {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  padding: var(--space-3);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-muted);
-  border-radius: var(--radius-md);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  transition: color var(--transition-fast), border-color var(--transition-fast);
-}
-
-.location-card__maps:hover {
-  color: var(--color-text);
-  border-color: var(--color-primary);
-}
+.sede-map { display: block; width: 100%; height: 100%; border: 0; }

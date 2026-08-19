@@ -1,50 +1,22 @@
-/* css/components/whatsapp-button.css */
+/* css/components/whatsapp-button.css — botones de acción que envían por WhatsApp */
 
-/* Botón flotante de WhatsApp */
-.whatsapp-fab {
-  position: fixed;
-  bottom: var(--space-8);
-  right: var(--space-6);
-  z-index: 90;
-  width: 56px;
-  height: 56px;
-  background: #25D366;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  animation: fab-bounce 3s ease-in-out infinite;
+.sede-wa {
+  display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+  padding: 0.9rem; background: #25D366; color: #fff;
+  border-radius: 12px; font-weight: 900; font-size: 1rem;
+  border: 2px solid #1da354;
+  box-shadow: 0 4px 12px rgba(37,211,102,0.35);
+  transition: transform 0.1s, box-shadow 0.1s;
 }
+.sede-wa:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,211,102,0.4); }
 
-.whatsapp-fab:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 28px rgba(37,211,102,0.6);
-  animation: none;
+.ct-wa {
+  display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+  width: 100%; padding: 1rem; background: #25D366; color: #fff;
+  border: none; border-radius: 12px; cursor: pointer;
+  font-family: 'Boogaloo', cursive; font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(37,211,102,0.35);
+  transition: background 0.15s, transform 0.1s;
 }
-
-.whatsapp-fab__icon {
-  width: 28px;
-  height: 28px;
-  fill: #fff;
-}
-
-@keyframes fab-bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
-
-@media (min-width: 768px) {
-  .whatsapp-fab {
-    width: 64px;
-    height: 64px;
-    bottom: var(--space-8);
-    right: var(--space-8);
-  }
-
-  .whatsapp-fab__icon {
-    width: 32px;
-    height: 32px;
-  }
-}
+.ct-wa:hover { background: #1ebe5d; transform: translateY(-1px); }
+.ct-wa svg { width: 20px; height: 20px; fill: #fff; }

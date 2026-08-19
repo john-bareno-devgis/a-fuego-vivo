@@ -1,27 +1,25 @@
-// js/modules/whatsapp.js
+// js/modules/whatsapp.js — arma y envía el mensaje de pedido por WhatsApp
+
+import { LOCATIONS } from '../config.js';
+import { COP } from './utils.js';
+
+const phone = LOCATIONS[0]?.phone ?? '573219357262';
 
 /**
- * Construye el enlace de WhatsApp con mensaje prellenado
+ * Construye el mensaje del pedido y abre WhatsApp con el texto prellenado.
  */
-export function buildWhatsAppLink(location, customMessage = '') {
-  const message = customMessage
-    || `¡Hola! Quiero hacer un pedido en ${location.name} 🌭🔥`;
-  const encoded = encodeURIComponent(message);
-  return `https://wa.me/${location.phone}?text=${encoded}`;
-}
-
-/**
- * Inicializa el botón flotante de WhatsApp
- * Usa la primera sede disponible o permite selección si hay varias
- */
-export function initWhatsApp(locations) {
-  const fab = document.querySelector('.whatsapp-fab');
-  if (!fab || !locations.length) return;
-
-  // Con una sola sede, el FAB apunta directamente a ella
-  const primary = locations[0];
-  fab.setAttribute('href', buildWhatsAppLink(primary));
-  fab.setAttribute('aria-label', `Pedir por WhatsApp — ${primary.name}`);
-
-  // Los botones de sede ya tienen sus href desde render-locations
+export function sendOrderToWhatsApp({ cart, deliveryFee, total, name, addr, apto, pay }) {
+  const lines = cart.map(i => `- ${i.name} x${i.qty} (${COP.format(i.price * i.qty)})`);
+  const msg = [
+    `*Pedido A Fuego Vivo Hot Dog*`, '',
+    ...lines, '',
+    `Domicilio: ${COP.format(deliveryFee)}`,
+    `*Total: ${COP.format(total)}*`, '',
+    `*Nombre:* ${name}`,
+    `*Direccion:* ${addr}`,
+    ...(apto ? [`*Apartamento:* ${apto}`] : []),
+    `*Pago:* ${pay}`, '',
+    'Gracias!',
+  ].join('\n');
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
 }
