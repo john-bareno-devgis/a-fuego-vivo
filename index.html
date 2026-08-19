@@ -290,6 +290,63 @@ img { max-width: 100%; display: block; }
   font-size: 0.8rem; font-weight: 700; padding: 0.2rem 0.75rem;
 }
 
+.combo-note {
+  background: var(--dark); color: #fff; border: 2px solid var(--dark); border-radius: var(--radius);
+  padding: 1.25rem 1.5rem; margin-bottom: 2rem; text-align: center;
+}
+.combo-note__title { font-family: 'Boogaloo', cursive; font-size: 1.3rem; color: var(--yellow); margin-bottom: 0.35rem; }
+.combo-note__desc { font-size: 0.9rem; color: #ddd; margin-bottom: 1rem; }
+.combo-note__desc strong { color: var(--yellow); }
+.combo-note__add {
+  background: var(--yellow); color: var(--dark);
+  border: 2px solid var(--yellow); border-radius: 10px;
+  font-weight: 900; font-size: 0.8rem; letter-spacing: 0.04em;
+  padding: 0.5rem 1.25rem; cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.combo-note__add:hover { background: var(--yellow-dark); transform: scale(1.05); }
+.combo-note__add.added { background: var(--red); color: #fff; border-color: var(--red); }
+
+.price-note {
+  background: #fff; border: 2px solid var(--dark); border-radius: var(--radius);
+  padding: 1.25rem 1.5rem; margin-bottom: 2rem;
+}
+.price-note__title { font-family: 'Boogaloo', cursive; font-size: 1.2rem; color: var(--dark); margin-bottom: 0.75rem; }
+.price-note__grid { display: grid; gap: 0.5rem; }
+.price-note__row {
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  font-size: 0.875rem; color: var(--dark);
+  padding-bottom: 0.5rem; border-bottom: 1px dashed #ccc;
+}
+.price-note__row-name { flex: 1; }
+.price-note__row-right { display: flex; align-items: center; gap: 0.6rem; }
+.price-note__row-price { font-weight: 800; color: var(--red); white-space: nowrap; }
+.price-note__add {
+  background: var(--yellow); color: var(--dark);
+  border: 2px solid var(--dark); border-radius: 8px;
+  font-weight: 900; font-size: 0.9rem; line-height: 1;
+  width: 1.6rem; height: 1.6rem; flex: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s, transform 0.1s;
+}
+.price-note__add:hover { background: var(--yellow-dark); transform: scale(1.1); }
+.price-note__add.added { background: var(--red); color: #fff; border-color: var(--red); }
+
+.price-note-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.price-note-cols .price-note { margin-bottom: 0; }
+@media (max-width: 640px) { .price-note-cols { grid-template-columns: 1fr; } }
+
+.menu-finish { text-align: center; margin-top: 1rem; }
+.menu-finish__btn {
+  background: var(--red); color: #fff;
+  border: 2px solid var(--dark); border-radius: 14px;
+  font-family: 'Boogaloo', cursive; font-size: 1.3rem; letter-spacing: 0.02em;
+  padding: 0.85rem 2.5rem; cursor: pointer;
+  box-shadow: 4px 4px 0 var(--dark);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.menu-finish__btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--dark); }
+
 /* ── SEDE ── */
 .sede-sec {
   padding: 5rem 1.5rem;
@@ -400,7 +457,9 @@ img { max-width: 100%; display: block; }
 /* cart total & buttons */
 .ct-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
 .ct-total__lbl { font-weight: 800; color: #888; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.08em; }
-.ct-total__val { font-family: 'Boogaloo', cursive; font-size: 1.75rem; color: var(--yellow); }
+.ct-total__vals { display: flex; flex-direction: column; align-items: flex-end; }
+.ct-total__delivery { font-size: 0.7rem; color: #888; }
+.ct-total__val { font-family: 'Boogaloo', cursive; font-size: 1.75rem; color: var(--yellow); line-height: 1.1; }
 .ct-next {
   display: block; width: 100%; padding: 1rem;
   background: var(--red); color: #fff; border: none; border-radius: 12px;
@@ -416,6 +475,7 @@ img { max-width: 100%; display: block; }
 .of-summary__lbl { font-size: 0.7rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; color: var(--yellow); margin-bottom: 0.5rem; }
 .of-summary__items { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.5rem; }
 .of-summary__item { font-size: 0.8rem; color: #aaa; background: #2a2a2a; padding: 2px 8px; border-radius: 100px; border: 1px solid #333; }
+.of-summary__delivery { font-size: 0.7rem; color: #888; margin-bottom: 0.15rem; }
 .of-summary__total { font-family: 'Boogaloo', cursive; font-size: 1.25rem; color: var(--yellow); }
 
 .of { display: flex; flex-direction: column; gap: 1.25rem; }
@@ -451,10 +511,12 @@ img { max-width: 100%; display: block; }
   border: 2px solid #444; border-radius: 12px;
   display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-align: center;
 }
+.llave-info[hidden] { display: none; }
 .llave-info__qr { width: 150px; height: 150px; border-radius: 8px; background: #fff; padding: 6px; }
 .llave-info__label { font-size: 0.8rem; color: #aaa; }
 .llave-info__key { font-family: 'Boogaloo', cursive; font-size: 1.5rem; color: var(--yellow); letter-spacing: 0.02em; }
 .llave-info__name { font-size: 0.75rem; color: #666; }
+.llave-info__note { font-size: 0.7rem; color: #888; margin-top: 0.25rem; }
 
 .ct-back { display: block; color: #666; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.75rem; cursor: pointer; background: none; border: none; text-align: left; }
 .ct-back:hover { color: #aaa; }
@@ -596,6 +658,9 @@ img { max-width: 100%; display: block; }
       <p class="sec-head__desc">Agrega lo que quieras al carrito y confirma tu pedido por WhatsApp.</p>
     </div>
     <div id="menu-inner"></div>
+    <div class="menu-finish">
+      <button type="button" class="menu-finish__btn" id="menu-finish-btn">Finalizar pedido →</button>
+    </div>
   </div>
 </section>
 
@@ -648,7 +713,7 @@ img { max-width: 100%; display: block; }
 </div>
 
 <script type="module">
-import { MENU, CHORIZOS, LOCATIONS, PAYMENT } from './js/config.js';
+import { MENU, CHORIZOS, LOCATIONS, PAYMENT, COMBO, EXTRAS, ADICIONES, BEBIDAS } from './js/config.js';
 
 const COP = new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0});
 let cart = [];
@@ -674,14 +739,29 @@ function renderMenu() {
           </article>`).join('')}
       </div>
     </div>
-  `).join('') + (CHORIZOS.length ? `
-    <div class="chorizo-note">
-      <p class="chorizo-note__title">Chorizos disponibles</p>
-      <div class="chorizo-note__tags">${CHORIZOS.map(c=>`<span class="chorizo-note__tag">${c}</span>`).join('')}</div>
-    </div>` : '');
+  `).join('') + `
+    <div class="combo-note">
+      <p class="combo-note__title">🔥 Arma tu combo</p>
+      <p class="combo-note__desc">Adicionando <strong>${COP.format(COMBO.price)}</strong> a cualquier preparación, llévate ${COMBO.includes.toLowerCase()}.</p>
+      <button class="combo-note__add" data-name="Combo (+ ${esc(COMBO.includes)})" data-price="${COMBO.price}" data-emoji="🔥" aria-label="Agregar combo">+ Agregar combo</button>
+    </div>
+    <div class="price-note">
+      <p class="price-note__title">Incluye más sabor en cualquiera de tus preparaciones</p>
+      <div class="price-note__grid">${EXTRAS.map(e=>priceRow(`${e.unit} de ${e.name}`, e.price, '🍖')).join('')}</div>
+    </div>
+    <div class="price-note-cols">
+      <div class="price-note">
+        <p class="price-note__title">Adiciones</p>
+        <div class="price-note__grid">${ADICIONES.map(a=>priceRow(a.name, a.price, '➕')).join('')}</div>
+      </div>
+      <div class="price-note">
+        <p class="price-note__title">Bebidas</p>
+        <div class="price-note__grid">${BEBIDAS.map(b=>priceRow(b.name, b.price, '🥤')).join('')}</div>
+      </div>
+    </div>`;
 
   wrap.addEventListener('click', e => {
-    const btn = e.target.closest('.menu-card2__add');
+    const btn = e.target.closest('.menu-card2__add, .price-note__add, .combo-note__add');
     if (!btn) return;
     const item = { name: btn.dataset.name, price: +btn.dataset.price, emoji: btn.dataset.emoji };
     if (btn.dataset.cat === 'choriperros') {
@@ -689,10 +769,22 @@ function renderMenu() {
       return;
     }
     addItem(item);
-    btn.textContent = '✓ Agregado'; btn.classList.add('added');
-    setTimeout(() => { btn.textContent = '+ Agregar'; btn.classList.remove('added'); }, 1200);
-    showCartStep(); openCart();
+    const label = btn.textContent;
+    btn.textContent = btn.classList.contains('price-note__add') ? '✓' : '✓ Agregado';
+    btn.classList.add('added');
+    setTimeout(() => { btn.textContent = label; btn.classList.remove('added'); }, 1200);
+    showCartStep();
   });
+}
+
+function priceRow(name, price, emoji) {
+  return `<div class="price-note__row">
+    <span class="price-note__row-name">${esc(name)}</span>
+    <span class="price-note__row-right">
+      <span class="price-note__row-price">${COP.format(price)}</span>
+      <button class="price-note__add" data-name="${esc(name)}" data-price="${price}" data-emoji="${emoji}" aria-label="Agregar ${esc(name)}">+</button>
+    </span>
+  </div>`;
 }
 
 // ── Modal selección de chorizo ──
@@ -720,7 +812,7 @@ document.getElementById('chorizo-opts')?.addEventListener('click', e => {
   const item = pendingChoriperro;
   addItem({ name: `${item.name} (${btn.dataset.chorizo})`, price: item.price, emoji: item.emoji });
   closeChorizoModal();
-  showCartStep(); openCart();
+  showCartStep();
 });
 document.getElementById('chorizo-close')?.addEventListener('click', closeChorizoModal);
 document.getElementById('chorizo-overlay')?.addEventListener('click', closeChorizoModal);
@@ -761,7 +853,9 @@ function changeQty(name,d) {
   i.qty+=d; if(i.qty<=0) cart=cart.filter(x=>x.name!==name);
   updateBadges();
 }
-function total() { return cart.reduce((s,i)=>s+i.price*i.qty,0); }
+const DELIVERY_FEE = 1000;
+function subtotal() { return cart.reduce((s,i)=>s+i.price*i.qty,0); }
+function total() { return cart.length ? subtotal() + DELIVERY_FEE : 0; }
 function totalItems() { return cart.reduce((s,i)=>s+i.qty,0); }
 function updateBadges() {
   const n = totalItems();
@@ -796,13 +890,19 @@ function showCartStep() {
       </div>
     </div>`).join('');
   footer.innerHTML=`
-    <div class="ct-total"><span class="ct-total__lbl">Total</span><span class="ct-total__val">${COP.format(total())}</span></div>
-    <button class="ct-next" id="go-form">Continuar con el pedido →</button>
+    <div class="ct-total">
+      <span class="ct-total__lbl">Total</span>
+      <span class="ct-total__vals">
+        <span class="ct-total__delivery">+ ${COP.format(DELIVERY_FEE)} domicilio</span>
+        <span class="ct-total__val">${COP.format(total())}</span>
+      </span>
+    </div>
+    <button class="ct-next" id="go-form">Finalizar pedido →</button>
     <button class="ct-clear" id="ct-clear">Vaciar pedido</button>`;
-  body.addEventListener('click', e => {
+  body.onclick = e => {
     const b = e.target.closest('.ci__btn'); if(!b) return;
     changeQty(b.dataset.name, b.dataset.action==='inc'?1:-1); showCartStep();
-  });
+  };
   document.getElementById('go-form')?.addEventListener('click', showFormStep);
   document.getElementById('ct-clear')?.addEventListener('click', ()=>{ cart=[]; updateBadges(); showCartStep(); });
 }
@@ -816,6 +916,7 @@ function showFormStep() {
     <div class="of-summary">
       <p class="of-summary__lbl">Tu pedido</p>
       <div class="of-summary__items">${resumen}</div>
+      <p class="of-summary__delivery">+ ${COP.format(DELIVERY_FEE)} domicilio</p>
       <p class="of-summary__total">${COP.format(total())}</p>
     </div>
     <form class="of" id="order-form" novalidate>
@@ -830,6 +931,10 @@ function showFormStep() {
         <p class="of__err" id="e-addr" hidden>Por favor ingresa tu direccion.</p>
       </div>
       <div class="of__field">
+        <label class="of__label" for="f-apto">Apartamento</label>
+        <input class="of__input" type="text" id="f-apto" placeholder="Torre, apto, interior... (opcional)" autocomplete="address-line2">
+      </div>
+      <div class="of__field">
         <p class="of__label">Metodo de pago</p>
         <div class="pay-opts" role="radiogroup">
           <label class="pay-opt"><input type="radio" name="pay" value="Llave" required><span class="pay-opt__card"><span class="pay-opt__icon">🔑</span><span class="pay-opt__name">Llave</span></span></label>
@@ -841,6 +946,7 @@ function showFormStep() {
           <p class="llave-info__label">Escanea este QR o paga por Bre-B a la llave:</p>
           <p class="llave-info__key">${esc(PAYMENT.llaveKey)}</p>
           <p class="llave-info__name">A nombre de ${esc(PAYMENT.llaveName)}</p>
+          <p class="llave-info__note">Comparte el comprobante por WhatsApp luego de enviar el pedido.</p>
         </div>
       </div>
     </form>`;
@@ -853,7 +959,9 @@ function showFormStep() {
   body.querySelectorAll('.pay-opt input').forEach(r => r.addEventListener('change', () => {
     body.querySelectorAll('.pay-opt__card').forEach(c=>c.classList.remove('sel'));
     r.nextElementSibling.classList.add('sel');
-    document.getElementById('llave-info')?.toggleAttribute('hidden', r.value !== 'Llave');
+    const llaveInfo = document.getElementById('llave-info');
+    llaveInfo?.toggleAttribute('hidden', r.value !== 'Llave');
+    if (r.value === 'Llave') llaveInfo?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }));
   document.getElementById('back-cart')?.addEventListener('click', showCartStep);
   document.getElementById('send-wa')?.addEventListener('click', submitForm);
@@ -862,20 +970,21 @@ function showFormStep() {
 function submitForm() {
   const name = document.getElementById('f-name')?.value.trim();
   const addr = document.getElementById('f-addr')?.value.trim();
+  const apto = document.getElementById('f-apto')?.value.trim();
   const pay  = document.querySelector('input[name="pay"]:checked')?.value ?? '';
   let ok = true;
   const se=(id,show)=>{ const el=document.getElementById(id); if(el) el.hidden=!show; const inp=document.getElementById(id.replace('e-','f-')); inp?.classList.toggle('err',show); };
   se('e-name',!name); se('e-addr',!addr); se('e-pay',!pay);
   if(!name||!addr||!pay) return;
   const lines = cart.map(i=>`- ${i.name} x${i.qty} (${COP.format(i.price*i.qty)})`);
-  const msg = [`*Pedido A Fuego Vivo Hot Dog*`,'', ...lines,'', `*Total: ${COP.format(total())}*`,'',`*Nombre:* ${name}`,`*Direccion:* ${addr}`,`*Pago:* ${pay}`,'','Gracias!'].join('\n');
+  const msg = [`*Pedido A Fuego Vivo Hot Dog*`,'', ...lines,'', `Domicilio: ${COP.format(DELIVERY_FEE)}`, `*Total: ${COP.format(total())}*`,'',`*Nombre:* ${name}`,`*Direccion:* ${addr}`, ...(apto?[`*Apartamento:* ${apto}`]:[]), `*Pago:* ${pay}`,'','Gracias!'].join('\n');
   window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,'_blank','noopener');
 }
 
 function openCart()  { const p=document.getElementById('cart-panel'),o=document.getElementById('cart-overlay'); p?.classList.add('open'); p?.setAttribute('aria-hidden','false'); o?.classList.add('open'); document.body.style.overflow='hidden'; }
 function closeCart() { const p=document.getElementById('cart-panel'),o=document.getElementById('cart-overlay'); p?.classList.remove('open'); p?.setAttribute('aria-hidden','true'); o?.classList.remove('open'); document.body.style.overflow=''; }
 
-['cart-toggle','cart-toggle-mobile','cart-fab'].forEach(id=>document.getElementById(id)?.addEventListener('click',()=>{showCartStep();openCart();}));
+['cart-toggle','cart-toggle-mobile','cart-fab','menu-finish-btn'].forEach(id=>document.getElementById(id)?.addEventListener('click',()=>{showCartStep();openCart();}));
 document.getElementById('cart-close')?.addEventListener('click', closeCart);
 document.getElementById('cart-overlay')?.addEventListener('click', closeCart);
 
@@ -892,9 +1001,13 @@ window.addEventListener('scroll',()=>{
 },{passive:true});
 
 function getEmoji(name) {
-  if(name.toLowerCase().includes('hawaiano')) return '🍍';
-  if(name.toLowerCase().includes('leñador')) return '🪓';
-  if(name.toLowerCase().includes('choripán')) return '🌶️';
+  const n = name.toLowerCase();
+  if(n.includes('hawaiano')) return '🍍';
+  if(n.includes('leñador')) return '🪓';
+  if(n.includes('choripán')) return '🌶️';
+  if(n.includes('choriarepa')) return '🫓';
+  if(n.includes('sándwich argentino')) return '🥪';
+  if(n.includes('papas locas')) return '🌶️';
   return '🌭';
 }
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
