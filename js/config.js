@@ -93,11 +93,19 @@ export const LOCATIONS = [
     name: 'Sede Principal',
     address: 'CR 54 D # 197 - 45, Conjunto Girasol Local 18',
     city: 'Bogotá',
-    schedule: 'Domingo a Domingo · Todo el día',
+    schedule: 'Domingo a Domingo · 10am-9pm',
     phone: '573219357262',   // formato internacional sin + ni espacios
-    mapsUrl: 'https://maps.google.com/?q=CR+54+D+%23+197-45+Bogota',
+    mapsUrl: 'https://maps.app.goo.gl/rHxKwt4hBCDv5vqn7',
+    mapsQuery: '4.776926,-74.045492',   // coordenadas exactas para centrar el mapa embebido
   },
 ];
+
+// Datos para pago con Llave (Bre-B / Daviplata)
+export const PAYMENT = {
+  llaveKey: '@1013259516',
+  llaveName: 'Mateo',
+  qrImage: 'assets/images/qr-llave.png',
+};
 
 // Redes sociales (vacías por ahora)
 export const SOCIAL = {

@@ -319,13 +319,11 @@ img { max-width: 100%; display: block; }
   transition: transform 0.1s, box-shadow 0.1s;
 }
 .sede-wa:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,211,102,0.4); }
-.sede-maps {
-  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-  padding: 0.65rem; border: 2px solid #444; color: #aaa;
-  border-radius: 12px; font-size: 0.85rem; font-weight: 700;
-  transition: border-color 0.15s, color 0.15s;
+.sede-map-wrap {
+  border: 2px solid #333; border-radius: 12px; overflow: hidden; line-height: 0;
+  aspect-ratio: 4 / 3;
 }
-.sede-maps:hover { border-color: var(--yellow); color: var(--yellow); }
+.sede-map { display: block; width: 100%; height: 100%; border: 0; }
 
 /* ── FOOTER ── */
 .footer2 {
@@ -434,7 +432,7 @@ img { max-width: 100%; display: block; }
 .of__input.err { border-color: #EF4444; }
 .of__err { font-size: 0.75rem; color: #EF4444; font-weight: 700; }
 
-.pay-opts { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.5rem; }
+.pay-opts { display: grid; grid-template-columns: repeat(2,1fr); gap: 0.5rem; }
 .pay-opt { cursor: pointer; }
 .pay-opt input { position: absolute; opacity: 0; width: 0; height: 0; }
 .pay-opt__card {
@@ -447,6 +445,16 @@ img { max-width: 100%; display: block; }
 .pay-opt__card.sel { border-color: var(--yellow); background: rgba(245,197,24,0.1); }
 .pay-opt__icon { font-size: 1.4rem; }
 .pay-opt__name { font-size: 0.75rem; font-weight: 800; color: #ddd; }
+
+.llave-info {
+  margin-top: 1rem; padding: 1.25rem; background: #222;
+  border: 2px solid #444; border-radius: 12px;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-align: center;
+}
+.llave-info__qr { width: 150px; height: 150px; border-radius: 8px; background: #fff; padding: 6px; }
+.llave-info__label { font-size: 0.8rem; color: #aaa; }
+.llave-info__key { font-family: 'Boogaloo', cursive; font-size: 1.5rem; color: var(--yellow); letter-spacing: 0.02em; }
+.llave-info__name { font-size: 0.75rem; color: #666; }
 
 .ct-back { display: block; color: #666; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.75rem; cursor: pointer; background: none; border: none; text-align: left; }
 .ct-back:hover { color: #aaa; }
@@ -461,9 +469,37 @@ img { max-width: 100%; display: block; }
 .ct-wa:hover { background: #1ebe5d; transform: translateY(-1px); }
 .ct-wa svg { width: 20px; height: 20px; fill: #fff; }
 
+/* ── MODAL CHORIZO ── */
+.chorizo-modal {
+  position: fixed; top: 50%; left: 50%; z-index: 210;
+  width: min(380px, calc(100vw - 2rem));
+  background: #1A1A1A; border: 2px solid #333; border-radius: 16px;
+  padding: 1.5rem;
+  transform: translate(-50%,-50%) scale(0.95); opacity: 0; pointer-events: none;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.chorizo-modal.open { transform: translate(-50%,-50%) scale(1); opacity: 1; pointer-events: all; }
+.chorizo-modal__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+.chorizo-modal__title { font-family: 'Boogaloo', cursive; font-size: 1.5rem; color: #fff; }
+.chorizo-modal__close {
+  width: 32px; height: 32px; border: 1px solid #444; border-radius: 8px;
+  color: #888; font-size: 0.9rem; cursor: pointer; background: #222;
+  display: flex; align-items: center; justify-content: center;
+  transition: color 0.15s, border-color 0.15s;
+}
+.chorizo-modal__close:hover { color: #fff; border-color: var(--red); }
+.chorizo-modal__sub { font-size: 0.85rem; color: #888; margin-bottom: 1rem; }
+.chorizo-modal__opts { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chorizo-opt {
+  padding: 0.6rem 1.1rem; background: #222; border: 2px solid #444; border-radius: 100px;
+  color: #ddd; font-weight: 700; font-size: 0.9rem; cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.chorizo-opt:hover { border-color: var(--yellow); background: rgba(245,197,24,0.1); }
+
 /* ── FAB carrito ── */
 .cart-fab2 {
-  position: fixed; bottom: 100px; right: 1.5rem; z-index: 90;
+  position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 90;
   width: 56px; height: 56px; border-radius: 50%;
   background: var(--red); border: 2px solid var(--dark);
   box-shadow: 3px 3px 0 var(--dark); cursor: pointer;
@@ -480,23 +516,8 @@ img { max-width: 100%; display: block; }
   display: flex; align-items: center; justify-content: center;
 }
 
-/* ── WA FAB ── */
-.wa-fab {
-  position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 90;
-  width: 56px; height: 56px; border-radius: 50%;
-  background: #25D366;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 16px rgba(37,211,102,0.4);
-  transition: transform 0.15s;
-  animation: wabounce 3s ease-in-out infinite;
-}
-.wa-fab:hover { transform: scale(1.1); animation: none; }
-.wa-fab svg { width: 30px; height: 30px; fill: #fff; }
-@keyframes wabounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
-
 @media (min-width: 768px) {
-  .cart-fab2 { bottom: 110px; right: 2rem; width: 60px; height: 60px; }
-  .wa-fab { bottom: 2rem; right: 2rem; width: 64px; height: 64px; }
+  .cart-fab2 { bottom: 2rem; right: 2rem; width: 60px; height: 60px; }
 }
 </style>
 </head>
@@ -549,7 +570,7 @@ img { max-width: 100%; display: block; }
       </div>
       <div class="hero__badge">
         <span class="hero__dot"></span>
-        Abierto · Domingo a Domingo · Todo el día
+        Abierto · Domingo a Domingo · 10am-9pm
       </div>
     </div>
     <div class="hero__visual" aria-hidden="true">🌭</div>
@@ -614,12 +635,20 @@ img { max-width: 100%; display: block; }
 <button class="cart-fab2" id="cart-fab" aria-label="Ver pedido" hidden>
   🛒<span class="cart-fab2__cnt" id="cart-fab-count">0</span>
 </button>
-<a class="wa-fab" href="#" id="wa-fab" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
+
+<!-- MODAL CHORIZO -->
+<div class="cart-overlay" id="chorizo-overlay"></div>
+<div class="chorizo-modal" id="chorizo-modal" role="dialog" aria-modal="true" aria-labelledby="chorizo-modal-title" aria-hidden="true">
+  <div class="chorizo-modal__head">
+    <h3 class="chorizo-modal__title" id="chorizo-modal-title">Elige el chorizo</h3>
+    <button class="chorizo-modal__close" id="chorizo-close" aria-label="Cerrar">✕</button>
+  </div>
+  <p class="chorizo-modal__sub" id="chorizo-modal-sub"></p>
+  <div class="chorizo-modal__opts" id="chorizo-opts"></div>
+</div>
 
 <script type="module">
-import { MENU, CHORIZOS, LOCATIONS } from './js/config.js';
+import { MENU, CHORIZOS, LOCATIONS, PAYMENT } from './js/config.js';
 
 const COP = new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0});
 let cart = [];
@@ -639,7 +668,7 @@ function renderMenu() {
             <div class="menu-card2__footer">
               <span class="menu-card2__price">${COP.format(item.price)}</span>
               <button class="menu-card2__add"
-                data-name="${esc(item.name)}" data-price="${item.price}" data-emoji="${getEmoji(item.name)}"
+                data-name="${esc(item.name)}" data-price="${item.price}" data-emoji="${getEmoji(item.name)}" data-cat="${cat.id}"
                 aria-label="Agregar ${item.name}">+ Agregar</button>
             </div>
           </article>`).join('')}
@@ -654,12 +683,47 @@ function renderMenu() {
   wrap.addEventListener('click', e => {
     const btn = e.target.closest('.menu-card2__add');
     if (!btn) return;
-    addItem({ name: btn.dataset.name, price: +btn.dataset.price, emoji: btn.dataset.emoji });
+    const item = { name: btn.dataset.name, price: +btn.dataset.price, emoji: btn.dataset.emoji };
+    if (btn.dataset.cat === 'choriperros') {
+      openChorizoModal(item);
+      return;
+    }
+    addItem(item);
     btn.textContent = '✓ Agregado'; btn.classList.add('added');
     setTimeout(() => { btn.textContent = '+ Agregar'; btn.classList.remove('added'); }, 1200);
     showCartStep(); openCart();
   });
 }
+
+// ── Modal selección de chorizo ──
+let pendingChoriperro = null;
+
+function openChorizoModal(item) {
+  pendingChoriperro = item;
+  document.getElementById('chorizo-modal-sub').textContent = `Para tu ${item.name}, ¿qué chorizo prefieres?`;
+  document.getElementById('chorizo-opts').innerHTML = CHORIZOS.map(c =>
+    `<button type="button" class="chorizo-opt" data-chorizo="${esc(c)}">${esc(c)}</button>`
+  ).join('');
+  document.getElementById('chorizo-modal')?.classList.add('open');
+  document.getElementById('chorizo-modal')?.setAttribute('aria-hidden','false');
+  document.getElementById('chorizo-overlay')?.classList.add('open');
+}
+function closeChorizoModal() {
+  pendingChoriperro = null;
+  document.getElementById('chorizo-modal')?.classList.remove('open');
+  document.getElementById('chorizo-modal')?.setAttribute('aria-hidden','true');
+  document.getElementById('chorizo-overlay')?.classList.remove('open');
+}
+document.getElementById('chorizo-opts')?.addEventListener('click', e => {
+  const btn = e.target.closest('.chorizo-opt');
+  if (!btn || !pendingChoriperro) return;
+  const item = pendingChoriperro;
+  addItem({ name: `${item.name} (${btn.dataset.chorizo})`, price: item.price, emoji: item.emoji });
+  closeChorizoModal();
+  showCartStep(); openCart();
+});
+document.getElementById('chorizo-close')?.addEventListener('click', closeChorizoModal);
+document.getElementById('chorizo-overlay')?.addEventListener('click', closeChorizoModal);
 
 // ── Render Sedes ──
 function renderSedes() {
@@ -669,16 +733,22 @@ function renderSedes() {
       <div class="sede-detail"><span class="sede-detail__icon">🏠</span><div class="sede-detail__text"><strong>Dirección</strong>${loc.address}${loc.city?', '+loc.city:''}</div></div>
       <div class="sede-detail"><span class="sede-detail__icon">🕐</span><div class="sede-detail__text"><strong>Horario</strong>${loc.schedule}</div></div>
       <div class="sede-detail"><span class="sede-detail__icon">📱</span><div class="sede-detail__text"><strong>Teléfono</strong>+57 ${loc.phone.replace('57','')}</div></div>
-      <a href="https://wa.me/${loc.phone}?text=${encodeURIComponent('Hola, quiero hacer un pedido!')}" target="_blank" rel="noopener" class="sede-wa">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Pedir por WhatsApp
-      </a>
-      ${loc.mapsUrl ? `<a href="${loc.mapsUrl}" target="_blank" rel="noopener" class="sede-maps">📍 Ver en Google Maps</a>` : ''}
+      <button type="button" class="sede-wa" data-open-cart>Haz tu pedido</button>
+      <div class="sede-map-wrap">
+        <iframe class="sede-map" src="${mapsEmbedSrc(loc)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de ${esc(loc.name)}"></iframe>
+      </div>
     </div>`).join('');
+
+  document.getElementById('sede-grid')?.addEventListener('click', e => {
+    if (!e.target.closest('[data-open-cart]')) return;
+    showCartStep(); openCart();
+  });
 }
 
-// ── WA FAB ──
-document.getElementById('wa-fab').href = `https://wa.me/${phone}?text=${encodeURIComponent('Hola, quiero hacer un pedido!')}`;
+function mapsEmbedSrc(loc) {
+  const q = encodeURIComponent(loc.mapsQuery || `${loc.address}${loc.city ? ', ' + loc.city : ''}`);
+  return `https://www.google.com/maps?q=${q}&z=17&output=embed`;
+}
 
 // ── Cart logic ──
 function addItem({name,price,emoji}) {
@@ -762,11 +832,16 @@ function showFormStep() {
       <div class="of__field">
         <p class="of__label">Metodo de pago</p>
         <div class="pay-opts" role="radiogroup">
-          <label class="pay-opt"><input type="radio" name="pay" value="Nequi" required><span class="pay-opt__card"><span class="pay-opt__icon">📱</span><span class="pay-opt__name">Nequi</span></span></label>
-          <label class="pay-opt"><input type="radio" name="pay" value="Llave"><span class="pay-opt__card"><span class="pay-opt__icon">🔑</span><span class="pay-opt__name">Llave</span></span></label>
+          <label class="pay-opt"><input type="radio" name="pay" value="Llave" required><span class="pay-opt__card"><span class="pay-opt__icon">🔑</span><span class="pay-opt__name">Llave</span></span></label>
           <label class="pay-opt"><input type="radio" name="pay" value="Efectivo"><span class="pay-opt__card"><span class="pay-opt__icon">💵</span><span class="pay-opt__name">Efectivo</span></span></label>
         </div>
         <p class="of__err" id="e-pay" hidden>Elige un metodo de pago.</p>
+        <div class="llave-info" id="llave-info" hidden>
+          <img class="llave-info__qr" src="${PAYMENT.qrImage}" alt="Código QR para pagar por Bre-B">
+          <p class="llave-info__label">Escanea este QR o paga por Bre-B a la llave:</p>
+          <p class="llave-info__key">${esc(PAYMENT.llaveKey)}</p>
+          <p class="llave-info__name">A nombre de ${esc(PAYMENT.llaveName)}</p>
+        </div>
       </div>
     </form>`;
   footer.innerHTML=`
@@ -778,6 +853,7 @@ function showFormStep() {
   body.querySelectorAll('.pay-opt input').forEach(r => r.addEventListener('change', () => {
     body.querySelectorAll('.pay-opt__card').forEach(c=>c.classList.remove('sel'));
     r.nextElementSibling.classList.add('sel');
+    document.getElementById('llave-info')?.toggleAttribute('hidden', r.value !== 'Llave');
   }));
   document.getElementById('back-cart')?.addEventListener('click', showCartStep);
   document.getElementById('send-wa')?.addEventListener('click', submitForm);
